@@ -193,9 +193,9 @@ public class Comments extends AppCompatActivity implements CommentsAdapter.OnIte
         animateContent();
 
         if (Config.ENABLE_ACTIVITY_COMMENTS_BANNER) {
-            AdRequest adRequest = new AdRequest.Builder().build();
+/*            AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
-            mAdView.setVisibility(View.VISIBLE);
+            mAdView.setVisibility(View.VISIBLE);*/
         }
 
         if (isReply) {

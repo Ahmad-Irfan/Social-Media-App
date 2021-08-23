@@ -97,7 +97,7 @@
 
     </LinearLayout>
 
-    <com.google.android.gms.ads.AdView
+<!--    <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
@@ -106,6 +106,6 @@
         ads:adUnitId="@string/banner_ad"
         android:layout_gravity="bottom|center"
         android:visibility="gone">
-    </com.google.android.gms.ads.AdView>
+    </com.google.android.gms.ads.AdView>-->
 
 </LinearLayout>

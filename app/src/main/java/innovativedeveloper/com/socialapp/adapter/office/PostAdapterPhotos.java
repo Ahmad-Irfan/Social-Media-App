@@ -2,6 +2,8 @@ package innovativedeveloper.com.socialapp.adapter.office;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +27,10 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import innovativedeveloper.com.socialapp.Comments;
+import innovativedeveloper.com.socialapp.OfficeActivity.CommentsActivity;
 import innovativedeveloper.com.socialapp.R;
+import innovativedeveloper.com.socialapp.dataset.Comment;
 import innovativedeveloper.com.socialapp.dataset.Feed;
 import innovativedeveloper.com.socialapp.dataset.Office.ModelPost;
 
@@ -63,6 +68,7 @@ public class PostAdapterPhotos extends RecyclerView.Adapter<PostAdapterPhotos.My
         String pImage = postList.get(position).getpImage();
         String pLikes = postList.get(position).getpLikes();
         String pId = postList.get(position).getpId();
+        String postIde = postList.get(position).getpId();
 
 
 
@@ -72,12 +78,22 @@ public class PostAdapterPhotos extends RecyclerView.Adapter<PostAdapterPhotos.My
 
         setLikes(holder,pId);
 
+
+
+        holder.btnComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CommentsActivity.class);
+                intent.putExtra("postKey",postIde);
+                context.startActivity(intent);
+            }
+        });
+
         holder.viewLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pLikes = Integer.parseInt(postList.get(position).getpLikes());
                 mProcessLike = true;
-                String postIde = postList.get(position).getpId();
                 likesRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

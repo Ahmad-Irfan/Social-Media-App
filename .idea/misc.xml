@@ -7,7 +7,8 @@
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/activity_add_post.xml" value="0.1" />
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/activity_block_list.xml" value="0.18070652173913043" />
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/activity_chat.xml" value="0.18070652173913043" />
-        <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/activity_comments.xml" value="0.18070652173913043" />
+        <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/activity_comments.xml" value="0.33" />
+        <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/activity_comments2.xml" value="0.18854166666666666" />
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/activity_friends.xml" value="0.18" />
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/activity_friends_list.xml" value="0.18070652173913043" />
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/activity_likes.xml" value="0.18070652173913043" />
@@ -42,7 +43,7 @@
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/item_chat_post_left.xml" value="0.14635416666666667" />
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/item_chat_post_right.xml" value="0.14635416666666667" />
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/item_chat_right.xml" value="0.14635416666666667" />
-        <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/item_comment.xml" value="0.14635416666666667" />
+        <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/item_comment.xml" value="0.33" />
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/item_conversation.xml" value="0.14635416666666667" />
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/item_feed.xml" value="0.22" />
         <entry key="..\:/Social Media App Office Projects/codecanyon-20119222-socialapp-full-android-application/SocialApp v2/SocialApp v2/app/src/main/res/layout/item_feed_photo.xml" value="0.21" />
