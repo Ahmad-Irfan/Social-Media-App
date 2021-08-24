@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class PostAdapterPhotos extends RecyclerView.Adapter<PostAdapterPhotos.My
         String pDescription = postList.get(position).getPdescr();
         String pImage = postList.get(position).getpImage();
         String pLikes = postList.get(position).getpLikes();
-        String pId = postList.get(position).getpId();
+       /* String pId = postList.get(position).getpId();*/
         String postIde = postList.get(position).getpId();
 
 
@@ -76,51 +77,45 @@ public class PostAdapterPhotos extends RecyclerView.Adapter<PostAdapterPhotos.My
         holder.txtName.setText(pTitle);
         holder.txtLikesCount.setText(pLikes+" Likes");
 
-        setLikes(holder,pId);
+        setLikes(holder,postIde);
 
 
 
-        holder.btnComments.setOnClickListener(new View.OnClickListener() {
+
+
+        holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CommentsActivity.class);
-                intent.putExtra("postKey",postIde);
-                context.startActivity(intent);
-            }
-        });
 
-        holder.viewLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pLikes = Integer.parseInt(postList.get(position).getpLikes());
-                mProcessLike = true;
-                likesRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(mProcessLike){
-                            if(snapshot.child(postIde).hasChild(myUid)){
-                                postsRef.child(postIde).child("pLikes").setValue(""+(pLikes-1));
-                                likesRef.child(postIde).child(myUid).removeValue();
-                                mProcessLike = false;
-                            }else{
-                                postsRef.child(postIde).child("pLikes").setValue(""+(pLikes+1));
-                                likesRef.child(postIde).child(myUid).setValue("Liked");
-                                mProcessLike = false;
+                    int pLikes = Integer.parseInt(postList.get(position).getpLikes());
+
+                    Log.d("MyTag","Error "+pLikes);
+                    mProcessLike = true;
+                    likesRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(mProcessLike){
+                                if(snapshot.child(postIde).hasChild(myUid)){
+                                    postsRef.child(postIde).child("pLikes").setValue(""+(pLikes-1));
+                                    likesRef.child(postIde).child(myUid).removeValue();
+                                    mProcessLike = false;
+                                }else{
+                                    postsRef.child(postIde).child("pLikes").setValue(""+(pLikes+1));
+                                    likesRef.child(postIde).child(myUid).setValue("Liked");
+                                    mProcessLike = false;
+                                }
                             }
+
+
+
                         }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
-            }
+                        }
+                    });
+                }
         });
 
         if(pImage.equals("noImage")){
@@ -145,6 +140,16 @@ public class PostAdapterPhotos extends RecyclerView.Adapter<PostAdapterPhotos.My
         }catch (Exception e){
 
         }
+
+
+        holder.btnComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CommentsActivity.class);
+                intent.putExtra("postKey",postIde);
+                context.startActivity(intent);
+            }
+        });
 
 
 

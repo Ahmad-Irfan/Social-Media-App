@@ -201,7 +201,7 @@
                     android:id="@+id/txtTotalLikes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2 Likes"/>
+                    android:text="0 Likes"/>
 
             </LinearLayout>
 

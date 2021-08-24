@@ -15,11 +15,12 @@
             android:id="@+id/icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             app:civ_border_color="@color/grey_soft"
-            app:civ_border_width="1dp"
-            android:layout_centerVertical="true"  />
+            android:src="@drawable/ic_people"
+            app:civ_border_width="1dp" />
 
         <TextView
             android:id="@+id/txtComment"
@@ -45,14 +46,14 @@
             android:layout_marginTop="5dp">
 
             <TextView
-                    android:id="@+id/txtDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/grey_hard"
-                    android:textStyle="normal"
-                    android:textSize="12sp"
-                    android:text="JUST A SECOND AGO"
-                android:layout_marginRight="10dp"/>
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="JUST A SECOND AGO"
+                android:textColor="@color/grey_hard"
+                android:textSize="12sp"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/txtReply"
