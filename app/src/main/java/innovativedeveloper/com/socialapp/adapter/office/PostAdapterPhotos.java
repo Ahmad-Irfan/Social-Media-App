@@ -29,6 +29,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import innovativedeveloper.com.socialapp.Comments;
+import innovativedeveloper.com.socialapp.LikedPostActivity;
 import innovativedeveloper.com.socialapp.OfficeActivity.CommentsActivity;
 import innovativedeveloper.com.socialapp.R;
 import innovativedeveloper.com.socialapp.dataset.Comment;
@@ -62,14 +63,15 @@ public class PostAdapterPhotos extends RecyclerView.Adapter<PostAdapterPhotos.My
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
 
         String pTitle = postList.get(position).getpTitle();
         String pDescription = postList.get(position).getPdescr();
         String pImage = postList.get(position).getpImage();
         String pLikes = postList.get(position).getpLikes();
-       /* String pId = postList.get(position).getpId();*/
+        String pId = postList.get(position).getpId();
         String postIde = postList.get(position).getpId();
+
 
 
 
@@ -79,6 +81,15 @@ public class PostAdapterPhotos extends RecyclerView.Adapter<PostAdapterPhotos.My
 
         setLikes(holder,postIde);
 
+        holder.txtLikesCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, LikedPostActivity.class);
+                intent.putExtra("PostId",pId);
+                context.startActivity(intent);
+            }
+        });
+
 
 
 
@@ -87,7 +98,13 @@ public class PostAdapterPhotos extends RecyclerView.Adapter<PostAdapterPhotos.My
             @Override
             public void onClick(View v) {
 
-                    int pLikes = Integer.parseInt(postList.get(position).getpLikes());
+              /*  int like = Integer.parseInt(postList.get(position).getpLikes());*/
+
+
+               /* int pLike = Integer.parseInt(postList.get(position).getpLikes());*/
+
+                    int pLike = Integer.parseInt(pLikes);
+                    Log.d("MyTag","Total likes"+pLike);
 
                     Log.d("MyTag","Error "+pLikes);
                     mProcessLike = true;
@@ -96,11 +113,11 @@ public class PostAdapterPhotos extends RecyclerView.Adapter<PostAdapterPhotos.My
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(mProcessLike){
                                 if(snapshot.child(postIde).hasChild(myUid)){
-                                    postsRef.child(postIde).child("pLikes").setValue(""+(pLikes-1));
+                                    postsRef.child(postIde).child("pLikes").setValue(""+(pLike-1));
                                     likesRef.child(postIde).child(myUid).removeValue();
                                     mProcessLike = false;
                                 }else{
-                                    postsRef.child(postIde).child("pLikes").setValue(""+(pLikes+1));
+                                    postsRef.child(postIde).child("pLikes").setValue(""+(pLike+1));
                                     likesRef.child(postIde).child(myUid).setValue("Liked");
                                     mProcessLike = false;
                                 }
@@ -167,13 +184,11 @@ public class PostAdapterPhotos extends RecyclerView.Adapter<PostAdapterPhotos.My
                 }else{
 
                     holder.viewLike.setImageResource(R.drawable.ic_like);
-
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".LikedPostActivity"
+            android:exported="true" />
+        <activity
             android:name=".OfficeActivity.CommentsActivity"
             android:exported="true" />
 
@@ -53,12 +56,12 @@
             android:name=".Login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".Register"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".UserProfile"
             android:theme="@style/AppTheme.UserProfile"
