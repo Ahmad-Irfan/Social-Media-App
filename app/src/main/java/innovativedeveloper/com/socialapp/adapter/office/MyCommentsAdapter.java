@@ -1,11 +1,13 @@
 package innovativedeveloper.com.socialapp.adapter.office;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import innovativedeveloper.com.socialapp.OfficeActivity.ReplyActivity;
 import innovativedeveloper.com.socialapp.R;
 import innovativedeveloper.com.socialapp.adapter.CommentsAdapter;
 import innovativedeveloper.com.socialapp.dataset.Comment;
@@ -51,9 +54,21 @@ public class MyCommentsAdapter extends RecyclerView.Adapter<MyCommentsAdapter.My
         String username = comments.get(position).getUsername();
         String data = comments.get(position).getData();
         String time = comments.get(position).getTime();
+        String commentId = comments.get(position).getCommentid();
+        String postId = comments.get(position).getPostId();
 
         holder.txtComment.setText(usermsg);
         holder.txtDate.setText(time);
+        holder.Name.setText(username);
+        holder.txtReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ReplyActivity.class);
+                intent.putExtra("cmntId",commentId);
+                intent.putExtra("postId",postId);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -69,6 +84,7 @@ public class MyCommentsAdapter extends RecyclerView.Adapter<MyCommentsAdapter.My
         TextView txtDate;
         TextView txtReply;
         TextView txtReplies;
+        TextView Name;
         ImageView btnMore;
 
        public MyViewHolder(@NonNull View view) {
@@ -80,6 +96,7 @@ public class MyCommentsAdapter extends RecyclerView.Adapter<MyCommentsAdapter.My
            btnMore = (ImageView) view.findViewById(R.id.btnMore);
            txtReply = (TextView) view.findViewById(R.id.txtReply);
            txtReplies = (TextView) view.findViewById(R.id.txtReplies);
+           Name =(TextView) view.findViewById(R.id.txtName);
        }
    }
 }

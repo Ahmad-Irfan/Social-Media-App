@@ -1,26 +1,20 @@
-package innovativedeveloper.com.socialapp;
+package innovativedeveloper.com.socialapp.OfficeActivity;
 
 /*import android.support.v7.app.AppCompatActivity;*/
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.Toast;
 
 /*import androidx.annotation.NonNull;
@@ -36,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;*/
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -53,12 +46,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.net.URI;
 import java.util.HashMap;
+
+import innovativedeveloper.com.socialapp.Login;
+import innovativedeveloper.com.socialapp.R;
 
 public class AddPostActivity extends AppCompatActivity {
 
@@ -324,7 +318,7 @@ public class AddPostActivity extends AppCompatActivity {
             email = user.getEmail();
             uid = user.getUid();
         }else{
-            startActivity(new Intent(AddPostActivity.this,Login.class));
+            startActivity(new Intent(AddPostActivity.this, Login.class));
             finish();
         }
     }

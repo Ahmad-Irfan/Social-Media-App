@@ -1,7 +1,6 @@
 package innovativedeveloper.com.socialapp.dataset.Office;
 
-public class MyCommentClass {
-
+public class ReplyComments {
     String username;
     String usermsg;
     String uid;
@@ -10,10 +9,10 @@ public class MyCommentClass {
     String commentid;
     String postId;
 
-    public MyCommentClass() {
+    public ReplyComments() {
     }
 
-    public MyCommentClass(String username, String usermsg, String uid, String data, String time, String commentid, String postId) {
+    public ReplyComments(String username, String usermsg, String uid, String data, String time, String commentid, String postId) {
         this.username = username;
         this.usermsg = usermsg;
         this.uid = uid;

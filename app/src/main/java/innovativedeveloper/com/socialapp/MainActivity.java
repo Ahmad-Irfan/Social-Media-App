@@ -12,14 +12,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import androidx.appcompat.widget.Toolbar;
-import com.google.android.material.appbar.AppBarLayout;
 /*import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;*/
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 /*import androidx.core.app.Fragment;
 import androidx.core.app.FragmentManager;*/
@@ -47,7 +45,6 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -58,12 +55,12 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import innovativedeveloper.com.socialapp.OfficeActivity.AddPostActivity;
 import innovativedeveloper.com.socialapp.adapter.BadgeCounter;
 import innovativedeveloper.com.socialapp.adapter.PageFragmentAdapter;
 import innovativedeveloper.com.socialapp.config.AppHandler;

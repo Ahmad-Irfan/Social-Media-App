@@ -1,13 +1,11 @@
-package innovativedeveloper.com.socialapp;
+package innovativedeveloper.com.socialapp.OfficeActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import innovativedeveloper.com.socialapp.R;
 import innovativedeveloper.com.socialapp.adapter.office.LikedPostAdapter;
 import innovativedeveloper.com.socialapp.dataset.Office.LikedUser;
 

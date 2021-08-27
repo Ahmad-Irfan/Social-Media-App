@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.BroadcastReceiver;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,8 +32,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Random;
 
-import innovativedeveloper.com.socialapp.AddPostActivity;
-import innovativedeveloper.com.socialapp.Login;
 import innovativedeveloper.com.socialapp.R;
 import innovativedeveloper.com.socialapp.adapter.CommentsAdapter;
 import innovativedeveloper.com.socialapp.adapter.office.MyCommentsAdapter;
@@ -165,6 +162,8 @@ public class CommentsActivity extends AppCompatActivity {
         Cmnt.put("usermsg",comments);
         Cmnt.put("date",cdate);
         Cmnt.put("time",ctimme);
+        Cmnt.put("commentid",randomPostKey);
+        Cmnt.put("postId",postKey);
 
         commentref.child(randomPostKey).updateChildren(Cmnt)
                 .addOnCompleteListener(new OnCompleteListener() {

@@ -19,7 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LikedPostActivity"
+            android:name=".OfficeActivity.ReplyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OfficeActivity.LikedPostActivity"
             android:exported="true" />
         <activity
             android:name=".OfficeActivity.CommentsActivity"
@@ -30,7 +33,7 @@
             android:required="false" />
 
         <activity
-            android:name=".AddPostActivity"
+            android:name=".OfficeActivity.AddPostActivity"
             android:exported="true" />
         <activity
             android:name=".config.AppHelper"

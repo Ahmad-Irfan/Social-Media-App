@@ -18,14 +18,27 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            app:civ_border_color="@color/grey_soft"
             android:src="@drawable/ic_people"
+            app:civ_border_color="@color/grey_soft"
             app:civ_border_width="1dp" />
+
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/icon"
+            android:text="Ismail Qasim"
+            android:textColor="#424242"
+            android:textSize="18dp"
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/txtComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtName"
             android:layout_marginTop="2dp"
             android:layout_marginRight="20dp"
             android:layout_toLeftOf="@+id/btnMore"
@@ -69,11 +82,11 @@
                 android:id="@+id/txtReplies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="View Replies"
-                android:layout_toRightOf="@id/txtReply"
-                android:textColor="@color/colorAccent"
                 android:layout_marginRight="10dp"
-                android:textSize="12sp"/>
+                android:layout_toRightOf="@id/txtReply"
+                android:text="View Replies"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp" />
 
         </RelativeLayout>
 

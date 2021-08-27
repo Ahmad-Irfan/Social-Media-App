@@ -1,9 +1,7 @@
 package innovativedeveloper.com.socialapp.adapter.office;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,11 +25,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import innovativedeveloper.com.socialapp.Comments;
-import innovativedeveloper.com.socialapp.LikedPostActivity;
+import innovativedeveloper.com.socialapp.OfficeActivity.LikedPostActivity;
 import innovativedeveloper.com.socialapp.OfficeActivity.CommentsActivity;
 import innovativedeveloper.com.socialapp.R;
-import innovativedeveloper.com.socialapp.dataset.Comment;
 import innovativedeveloper.com.socialapp.dataset.Feed;
 import innovativedeveloper.com.socialapp.dataset.Office.ModelPost;
 
