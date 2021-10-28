@@ -55,4 +55,20 @@
     <style name="RippleStyleBlack" parent="RippleStyleWhite">
         <item name="mrl_rippleColor">#8096989A</item>
     </style>
+
+
+    <style name="mytheme" parent="android:style/Theme.Translucent">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_background_shadow</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
+
 </resources>

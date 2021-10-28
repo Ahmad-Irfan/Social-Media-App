@@ -90,8 +90,41 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/textViewLayout"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="#424242"
+                android:textSize="18dp"
+                android:text="Friend"
+                android:textStyle="normal" />
+
+            <ImageView
+                android:id="@+id/imgAccept"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:tint="@color/colorAccent"
+                android:src="@drawable/ic_verified"
+                android:layout_gravity="center"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:visibility="visible"
             android:orientation="horizontal"
             android:gravity="center">
 

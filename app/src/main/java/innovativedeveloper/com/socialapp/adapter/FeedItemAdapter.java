@@ -19,7 +19,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.NativeExpressAdView;
 import com.klinker.android.link_builder.Link;
 import com.klinker.android.link_builder.LinkBuilder;
 import com.squareup.picasso.Callback;
@@ -130,7 +129,7 @@ public class FeedItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             AppService.addVideoThumbnail(feedItems.get(holder.getAdapterPosition()).getContent(), ((CellFeedViewHolder) holder).videoThumbnail);
         } else if (getItemViewType(holder.getAdapterPosition()) == FEED_AD_TYPE) {
             AdRequest adRequest = new AdRequest.Builder().build();
-            ((AdFeedViewHolder) holder).adView.loadAd(adRequest);
+//            ((AdFeedViewHolder) holder).adView.loadAd(adRequest);
         }
         if (getItemViewType(position) != FEED_AD_TYPE && ((CellFeedViewHolder) holder).sharedPostProfile != null) {
             ((CellFeedViewHolder) holder).sharedPostProfile.setOnClickListener(new Link.OnClickListener() {
@@ -253,10 +252,10 @@ public class FeedItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public static class AdFeedViewHolder extends RecyclerView.ViewHolder {
 
-        NativeExpressAdView adView;
+//        NativeExpressAdView adView;
         public AdFeedViewHolder(View itemView) {
             super(itemView);
-            adView = (NativeExpressAdView) itemView.findViewById(R.id.adView);
+//            adView = (NativeExpressAdView) itemView.findViewById(R.id.adView);
         }
     }
 

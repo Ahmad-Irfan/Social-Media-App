@@ -104,12 +104,12 @@ public class Search extends AppCompatActivity {
         });
 
         setupTabsTitle();
-
+/*
         if (Config.ENABLE_ACTIVITY_SEARCH_BANNER) {
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
             mAdView.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     public void updateSearch(String query) {

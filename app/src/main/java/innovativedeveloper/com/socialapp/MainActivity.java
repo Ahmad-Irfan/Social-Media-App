@@ -1,16 +1,26 @@
 package innovativedeveloper.com.socialapp;
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 /*import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +28,7 @@ import android.support.design.widget.TabLayout;*/
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 /*import androidx.core.app.Fragment;
 import androidx.core.app.FragmentManager;*/
@@ -30,12 +41,21 @@ import androidx.core.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;*/
+import android.os.Build;
 import android.os.Bundle;
 /*import android.support.v7.widget.Toolbar;*/
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -45,6 +65,9 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -54,6 +77,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +85,9 @@ import java.util.List;
 import java.util.Map;
 
 import innovativedeveloper.com.socialapp.OfficeActivity.AddPostActivity;
+import innovativedeveloper.com.socialapp.OfficeActivity.PhotoAndVideoUploadActivity;
+import innovativedeveloper.com.socialapp.OfficeActivity.SelectUploadPost;
+import innovativedeveloper.com.socialapp.OfficeActivity.UserProfileActivity;
 import innovativedeveloper.com.socialapp.adapter.BadgeCounter;
 import innovativedeveloper.com.socialapp.adapter.PageFragmentAdapter;
 import innovativedeveloper.com.socialapp.config.AppHandler;
@@ -70,12 +97,13 @@ import innovativedeveloper.com.socialapp.fragment.FriendRequests;
 import innovativedeveloper.com.socialapp.fragment.NewsFeed;
 import innovativedeveloper.com.socialapp.fragment.Notifications;
 import innovativedeveloper.com.socialapp.fragment.Profile;
+import innovativedeveloper.com.socialapp.fragment.officeFragment.SearchPeopleFragment;
 import innovativedeveloper.com.socialapp.messaging.ChatActivity;
 import innovativedeveloper.com.socialapp.messaging.Messages;
 import innovativedeveloper.com.socialapp.preferences.SettingsActivity;
 import innovativedeveloper.com.socialapp.services.AppService;
 
-public class MainActivity extends AppCompatActivity implements AppService.OnServiceChanged {
+public class MainActivity extends AppCompatActivity  {
 
 
     TabLayout tabLayout;
@@ -88,14 +116,21 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
     FriendRequests fragmentRequests;
     NewsFeed fragmentNewsFeed;
     Notifications fragmentNotification;
+    SearchPeopleFragment searchPeopleFragment;
     Profile fragmentProfile;
     BroadcastReceiver broadcastReceiver;
     int notificationCount, messagesCount, requestsCount;
     FloatingActionButton floatingActionButton;
 
     FirebaseAuth firebaseAuth;
+    CoordinatorLayout coordinatorLayout;
 
     List<Fragment> fragmentList;
+
+
+    private  AlertDialog dialogWhichDisplayAlert;
+    private Dialog fakeDialogUseToGetWindowForBlurEffect;
+
     public static void startActivity(Activity startingActivity) {
         Intent intent = new Intent(startingActivity, MainActivity.class);
         startingActivity.startActivity(intent);
@@ -118,6 +153,9 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
         actionbar.setDisplayHomeAsUpEnabled(false);
         mainActivity = findViewById(R.id.main_content);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        coordinatorLayout = findViewById(R.id.main_content);
+
+
         viewPager.setOffscreenPageLimit(4);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -127,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AddPostActivity.class));
+                startActivity(new Intent(MainActivity.this, SelectUploadPost.class));
             }
         });
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -191,9 +229,9 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
                             }
                         }).show();
                     } else if (intent.getStringExtra("action").equals(String.valueOf(Config.PUSH_TYPE_REQUESTS))) {
-                        if (fragmentRequests != null) {
+/*                        if (fragmentRequests != null) {
                             fragmentRequests.refreshRequests();
-                        }
+                        }*/
                         Snackbar.make(mainActivity, intent.getStringExtra("messageData"), Snackbar.LENGTH_LONG).setAction("View Requests", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -274,10 +312,13 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
         fragmentRequests = new FriendRequests();
         fragmentNotification = new Notifications();
         fragmentProfile = new Profile();
+        searchPeopleFragment = new SearchPeopleFragment();
+
         adapter.addFragment(fragmentNewsFeed, getString(R.string.tab_feed));
         adapter.addFragment(fragmentNotification, getString(R.string.tab_notifications));
         adapter.addFragment(fragmentRequests, getString(R.string.tab_requests));
         adapter.addFragment(fragmentProfile, getString(R.string.tab_profile));
+        adapter.addFragment(searchPeopleFragment,"Search User");
         viewPager.setAdapter(adapter);
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle("News Feed");
@@ -288,6 +329,7 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
         tabLayout.getTabAt(1).setIcon(R.drawable.tab_notification);
         tabLayout.getTabAt(2).setIcon(R.drawable.tab_friend);
         tabLayout.getTabAt(3).setIcon(R.drawable.tab_profile);
+        tabLayout.getTabAt(4).setIcon(R.drawable.ic_baseline_person_search_24);
     }
 
     @Override
@@ -296,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
         updateMessages(AppHandler.getInstance().getDBHandler().getMessagesCount());
         updateNotification(AppHandler.getInstance().getDBHandler().getNotificationsCount());
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("notification"));
-        AppHandler.getInstance().getAppService().setOnServiceChanged(this);
+//        AppHandler.getInstance().getAppService().setOnServiceChanged(this);
     }
 
     @Override
@@ -322,14 +364,118 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (item.getItemId() == R.id.action_search) {
-            startActivity(new Intent(this, Search.class));
-        } else if (item.getItemId() == R.id.action_messages) {
+
+            coordinatorLayout.setAlpha(0.1f);
+            CheckBox checkBoxusername,checkBoxdescription,checkboxtag;
+            Button dialogOk,dialogCancel;
+            EditText etname,etdesc,ettag;
+            final Dialog dialog = new Dialog(MainActivity.this);
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.custom_alertialogbox_new);
+//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alertbackground);
+            checkBoxusername = dialog.findViewById(R.id.userName);
+            checkBoxdescription = dialog.findViewById(R.id.Description);
+            checkboxtag = dialog.findViewById(R.id.tag);
+            etname =dialog.findViewById(R.id.etusername);
+            etdesc = dialog.findViewById(R.id.etdescription);
+            ettag = dialog.findViewById(R.id.ettag);
+
+
+            checkBoxusername.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        etname.setVisibility(View.VISIBLE);
+                    }else{
+                        etname.setVisibility(View.GONE);
+                        etname.setText("");
+                    }
+                }
+            });
+
+            checkBoxdescription.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        etdesc.setVisibility(View.VISIBLE);
+                    }else{
+                        etdesc.setVisibility(View.GONE);
+                        etdesc.setText("");
+                    }
+                }
+            });
+
+            checkboxtag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        ettag.setVisibility(View.VISIBLE);
+                    }else{
+                        ettag.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+
+            dialogOk =(Button)dialog.findViewById(R.id.btnok);
+            dialogCancel = (Button) dialog.findViewById(R.id.btncancel);
+
+            dialogCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    coordinatorLayout.setAlpha(1f);
+                    dialog.dismiss();
+
+                }
+            });
+
+            dialogOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    coordinatorLayout.setAlpha(1f);
+                    String name = etname.getText().toString();
+                    String desc = etdesc.getText().toString();
+                    String tag = ettag.getText().toString();
+
+
+                    if(checkBoxusername.isChecked()){
+                        newsFeednew.onSearchPost(name,desc,tag);
+                    }if(checkBoxdescription.isChecked()){
+                        newsFeednew.onSearchPost(name,desc,tag);
+                    }if(checkBoxusername.isChecked() && checkBoxdescription.isChecked()){
+                        Log.d("TAG", "onClick: multiplt check boxes checked");
+                        newsFeednew.onSearchPost(name,desc,tag);
+                    }
+                    dialog.dismiss();
+
+
+                }
+            });
+
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    coordinatorLayout.setAlpha(1f);
+                }
+            });
+
+
+            dialog.show();
+
+
+
+
+//          startActivity(new Intent(this, Search.class));
+        }else if (item.getItemId() == R.id.action_messages) {
             startActivity(new Intent(this, Messages.class));
         } else if (item.getItemId() == R.id.action_trending) {
             startActivity(new Intent(this, Trending.class));
         } else if (item.getItemId() == R.id.action_profile) {
-            UserProfile.startUserProfile(this, AppHandler.getInstance().getUser().getUsername(), AppHandler.getInstance().getUser().getName());
+          //  UserProfile.startUserProfile(this, AppHandler.getInstance().getUser().getUsername(), AppHandler.getInstance().getUser().getName());
+            startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
         } else if (item.getItemId() == R.id.action_logout) {
             new AlertDialog.Builder(MainActivity.this)
                     .setTitle("Logout")
@@ -364,11 +510,11 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+/*    @Override
     public void onAuthorizedStatusChanged(JSONObject obj) {
         try {
             if (!obj.getBoolean("error")) {
-                ((NewsFeed)getSupportFragmentManager().getFragments().get(0)).loadFeed();
+//                ((NewsFeed)getSupportFragmentManager().getFragments().get(0)).loadFeed();
                 getLocation();
             } else {
                 int code = obj.getInt("code");
@@ -393,11 +539,11 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
                     AppHandler.getInstance().getDataManager().clear();
                     startActivity(new Intent(getApplicationContext(), AppHelper.class));
                     Toast.makeText(MainActivity.this, "Session expired.", Toast.LENGTH_SHORT).show();
-/*                    try {
+*//*                    try {
                         FirebaseInstanceId.getInstance().deleteInstanceId();
                     } catch (IOException ex) {
                         Log.e("MainActivity", "Unable to delete instance id.");
-                    }*/
+                    }*//*
                 } else {
                     Toast.makeText(MainActivity.this, "Unable to connect to the server.", Toast.LENGTH_SHORT).show();
                 }
@@ -405,7 +551,7 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
         } catch (JSONException ex) {
             Log.e("Authorization", "Unexpected error: " + ex.getMessage());
         }
-    }
+    }*/
 
     private void authorize() {
         class Authorize extends AsyncTask<Void, Void, String> {
@@ -532,4 +678,12 @@ public class MainActivity extends AppCompatActivity implements AppService.OnServ
         checkUserStatus();
         super.onStart();
     }
+
+    NewsFeed newsFeednew;
+
+    public void setOnDataListener(NewsFeed newsFeed) {
+        this.newsFeednew = newsFeed;
+    }
 }
+
+

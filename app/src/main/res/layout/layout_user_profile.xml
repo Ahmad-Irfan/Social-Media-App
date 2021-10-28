@@ -217,7 +217,7 @@
                         android:layout_height="match_parent"
                         android:clipToPadding="false"
                         app:stackFromEnd="false"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:scrollbars="vertical"/>
 
                     <TextView

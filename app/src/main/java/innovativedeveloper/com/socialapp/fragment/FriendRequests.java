@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,12 +22,20 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import innovativedeveloper.com.socialapp.ItemDivider;
@@ -34,23 +43,32 @@ import innovativedeveloper.com.socialapp.MainActivity;
 import innovativedeveloper.com.socialapp.R;
 import innovativedeveloper.com.socialapp.UserProfile;
 import innovativedeveloper.com.socialapp.adapter.RequestAdapter;
+import innovativedeveloper.com.socialapp.adapter.office.FirendRequestAdapter;
+import innovativedeveloper.com.socialapp.adapter.office.SearchUserAdapter;
 import innovativedeveloper.com.socialapp.config.AppHandler;
 import innovativedeveloper.com.socialapp.config.Config;
+import innovativedeveloper.com.socialapp.dataset.Office.FriendRequestModelClass;
 import innovativedeveloper.com.socialapp.dataset.User;
+import innovativedeveloper.com.socialapp.officeInterface.showAndHideButton;
 
-public class FriendRequests extends Fragment implements RequestAdapter.OnItemClickListener {
+public class FriendRequests extends Fragment implements RequestAdapter.OnItemClickListener, showAndHideButton {
 
     RecyclerView recyclerView;
     ProgressBar progressBar;
     View empty_Feed;
     ArrayList<User> requestsList;
     RequestAdapter requestAdapter;
-    public FriendRequests() {
-    }
 
-    public void refreshRequests() {
+    List<FriendRequestModelClass> friendRequestModelClassList;
+    FirendRequestAdapter firendRequestAdapter;
+    DatabaseReference firebaseReference;
+
+/*    public FriendRequests() {
+    }*/
+
+/*    public void refreshRequests() {
         loadRequests();
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +82,24 @@ public class FriendRequests extends Fragment implements RequestAdapter.OnItemCli
         requestAdapter.setOnItemClickListener(this);
         requestAdapter.setAnimationsLocked(true);
         requestAdapter.setHasStableIds(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = firebaseUser.getUid();
+
+
+        firebaseReference = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("ReceiveRequests");
+
+//   office implementation
+        friendRequestModelClassList = new ArrayList<>();
+        LinearLayoutManager linearLayoutManagernew = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManagernew);
+        firendRequestAdapter = new FirendRequestAdapter(getActivity(),friendRequestModelClassList,this);
+        recyclerView.setAdapter(firendRequestAdapter);
+        loadFriendRequest();
+
+
+
+/*        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
             @Override
             protected int getExtraLayoutSpace(RecyclerView.State state) {
                 return 300;
@@ -82,9 +117,44 @@ public class FriendRequests extends Fragment implements RequestAdapter.OnItemCli
                     requestAdapter.setAnimationsLocked(true);
                 }
             }
-        });
-        loadRequests();
+        });*/
+      /*  loadRequests();*/
         return v;
+    }
+
+    private void loadFriendRequest() {
+
+
+//        Log.d("TAG", "loadFriendRequest: snapshot data"+firebaseReference);
+        firebaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+           if(snapshot.exists()){
+               Log.d("TAG", "loadFriendRequest: snapshot data");
+               friendRequestModelClassList.clear();
+               for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                   String name = dataSnapshot.child("name").getValue(String.class);
+                   Log.d("TAG", "onDataChange: "+name.toString());
+                   FriendRequestModelClass value = dataSnapshot.getValue(FriendRequestModelClass.class);
+
+                   friendRequestModelClassList.add(value);
+               }
+               firendRequestAdapter.notifyDataSetChanged();
+           }
+           else {
+//               Log.d("TAG", "loadFriendRequest: snapshot data");
+           }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.d("TAG", "onCancelled: "+error.getMessage());
+
+            }
+        });
+
+
     }
 
     @Override
@@ -102,7 +172,7 @@ public class FriendRequests extends Fragment implements RequestAdapter.OnItemCli
                     if (!obj.getBoolean("error")) {
                         requestsList.remove(position);
                         requestAdapter.notifyItemRemoved(position);
-                        updateRequests();
+                    /*    updateRequests();*/
                     } else {
                         requestAdapter.notifyItemChanged(position);
                     }
@@ -144,7 +214,7 @@ public class FriendRequests extends Fragment implements RequestAdapter.OnItemCli
                         requestsList.remove(position);
                         requestAdapter.notifyItemRemoved(position);
                         Toast.makeText(getActivity(), "Request rejected.", Toast.LENGTH_SHORT).show();
-                        updateRequests();
+                   /*     updateRequests();*/
                     } else {
                         requestAdapter.notifyItemChanged(position);
                     }
@@ -243,6 +313,22 @@ public class FriendRequests extends Fragment implements RequestAdapter.OnItemCli
         AppHandler.getInstance().addToRequestQueue(request);
     }
 
+    @Override
+    public void ShowButton(int position) {
+
+
+
+    }
+
+    @Override
+    public void hideButton(int position) {
+
+        RecyclerView.ViewHolder viewHolderForAdapterPosition = recyclerView.findViewHolderForAdapterPosition(position);
+        viewHolderForAdapterPosition.itemView.findViewById(R.id.btnLayout).setVisibility(View.GONE);
+        viewHolderForAdapterPosition.itemView.findViewById(R.id.textViewLayout).setVisibility(View.VISIBLE);
+
+    }
+/*
     public void updateRequests() {
         ((MainActivity)getActivity()).updateRequests(requestsList.size());
         if (requestAdapter.getItemCount() < 1) {
@@ -252,5 +338,5 @@ public class FriendRequests extends Fragment implements RequestAdapter.OnItemCli
         } else {
             empty_Feed.setVisibility(View.GONE);
         }
-    }
+    }*/
 }

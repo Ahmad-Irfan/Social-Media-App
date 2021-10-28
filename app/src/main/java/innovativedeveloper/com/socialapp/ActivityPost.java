@@ -108,11 +108,11 @@ public class ActivityPost extends AppCompatActivity implements FeedItemAdapter.O
         loadPost(postId);
         setTitle("");
 
-        if (Config.ENABLE_ACTIVITY_POST_BANNER) {
+     /*   if (Config.ENABLE_ACTIVITY_POST_BANNER) {
             AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
             mAdView.loadAd(adRequest);
             mAdView.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     @Override

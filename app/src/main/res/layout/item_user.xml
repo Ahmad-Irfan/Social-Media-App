@@ -26,6 +26,7 @@
             app:civ_border_color="@color/grey_hard"/>
 
         <LinearLayout
+            android:id="@+id/linearLayoutName"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -97,8 +98,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add as friend"
+                android:visibility="visible"
                 android:textSize="12dp"
                 style="@style/Base.Widget.AppCompat.Button.Colored" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                app:srcCompat="@drawable/ic_baseline_done_24"/>
             
         </LinearLayout>
     </LinearLayout>

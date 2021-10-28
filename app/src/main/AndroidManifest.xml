@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="innovativedeveloper.com.socialapp">
+    package="innovativedeveloper.com.socialapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -17,7 +17,22 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true" >
+
+
+        <activity
+            android:name=".OfficeActivity.UserProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OfficeActivity.TextActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OfficeActivity.SelectUploadPost"
+            android:exported="true" />
+        <activity
+            android:name=".OfficeActivity.PhotoAndVideoUploadActivity"
+            android:exported="true" />
         <activity
             android:name=".OfficeActivity.ReplyActivity"
             android:exported="true" />
@@ -41,7 +56,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -92,7 +107,7 @@
         <service
             android:name=".services.MyFirebaseMessagingService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -100,7 +115,7 @@
         <service
             android:name=".services.MyFirebaseInstanceIDService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
@@ -126,6 +141,22 @@
             android:name=".Trending"
             android:label="@string/trending"
             android:windowSoftInputMode="stateHidden" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="innovativedeveloper.com.socialapp.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
+
+        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3400748591553252~6347661865"/>
+
     </application>
 
 </manifest>

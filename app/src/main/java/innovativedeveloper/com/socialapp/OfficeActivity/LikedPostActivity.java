@@ -36,7 +36,8 @@ public class LikedPostActivity extends AppCompatActivity {
         LikedUserList = new ArrayList<>();
         String postId = getIntent().getStringExtra("PostId");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Likes");
-        databaseReference.child(postId).addValueEventListener(new ValueEventListener() {
+        DatabaseReference likeRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).child("totalLikes");
+        likeRef.child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){

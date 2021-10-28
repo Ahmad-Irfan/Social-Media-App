@@ -2,19 +2,22 @@ package innovativedeveloper.com.socialapp.dataset.Office;
 
 public class ModelPost {
 
-    String Uid, pTitle, pLikes, pdescr, pImage,pId;
+    String Uid, pTitle, pLikes, pDescr, pImage,pId,type,uName,categoryId;
 
     public ModelPost() {
 
     }
 
-    public ModelPost(String uid, String pTitle, String pLikes, String pdescr, String pImage, String pId) {
-        this.Uid = uid;
+    public ModelPost(String uid, String pTitle, String pLikes, String pDescr, String pImage, String pId, String type, String uName, String categoryId) {
+        Uid = uid;
         this.pTitle = pTitle;
         this.pLikes = pLikes;
-        this.pdescr = pdescr;
+        this.pDescr = pDescr;
         this.pImage = pImage;
         this.pId = pId;
+        this.type = type;
+        this.uName = uName;
+        this.categoryId = categoryId;
     }
 
     public String getUid() {
@@ -41,12 +44,12 @@ public class ModelPost {
         this.pLikes = pLikes;
     }
 
-    public String getPdescr() {
-        return pdescr;
+    public String getpDescr() {
+        return pDescr;
     }
 
-    public void setPdescr(String pdescr) {
-        this.pdescr = pdescr;
+    public void setpDescr(String pDescr) {
+        this.pDescr = pDescr;
     }
 
     public String getpImage() {
@@ -63,5 +66,29 @@ public class ModelPost {
 
     public void setpId(String pId) {
         this.pId = pId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getuName() {
+        return uName;
+    }
+
+    public void setuName(String uName) {
+        this.uName = uName;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }

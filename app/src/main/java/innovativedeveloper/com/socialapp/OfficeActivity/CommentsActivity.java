@@ -44,7 +44,7 @@ public class CommentsActivity extends AppCompatActivity {
     ImageView btnSend;
     LinearLayout mainLayout, commentLayout;
     Toolbar toolbar;
-    CommentsAdapter cAdapter;
+//    CommentsAdapter cAdapter;
     ArrayList<Comment> commentsList;
     String postId, commentId;
     boolean isDisabled;
@@ -57,6 +57,7 @@ public class CommentsActivity extends AppCompatActivity {
    private DatabaseReference userref,commentref;
     String uid;
     ArrayList<MyCommentClass> CommentsList;
+    MyCommentsAdapter myCommentsAdapter;
 
 
     @Override
@@ -77,7 +78,7 @@ public class CommentsActivity extends AppCompatActivity {
             }
         });
         bottomView = findViewById(R.id.bottomView);
-        commentsList = new ArrayList<>();
+//        commentsList = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         txtComment = (EditText) findViewById(R.id.txtComment);
         btnSend = (ImageView) findViewById(R.id.btnSend);
@@ -86,6 +87,8 @@ public class CommentsActivity extends AppCompatActivity {
         CommentsList = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CommentsActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
+        myCommentsAdapter = new MyCommentsAdapter(CommentsActivity.this,CommentsList);
+        recyclerView.setAdapter(myCommentsAdapter);
 
 
         postKey = getIntent().getStringExtra("postKey");
@@ -133,8 +136,7 @@ public class CommentsActivity extends AppCompatActivity {
                 for(DataSnapshot ds: snapshot.getChildren()){
                    MyCommentClass myCommentClass = ds.getValue(MyCommentClass.class);
                    CommentsList.add(myCommentClass);
-                    MyCommentsAdapter myCommentsAdapter = new MyCommentsAdapter(CommentsActivity.this,CommentsList);
-                    recyclerView.setAdapter(myCommentsAdapter);
+                    myCommentsAdapter.notifyDataSetChanged();
                 }
             }
 

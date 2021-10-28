@@ -56,6 +56,7 @@ public class ReplyActivity extends AppCompatActivity {
     String postId;
     String uid;
     ArrayList<ReplyComments> ReplyCommentsList;
+    ReplyCommentAdapter replyCommentAdapter;
 
 
 
@@ -90,6 +91,8 @@ public class ReplyActivity extends AppCompatActivity {
         ReplyCommentsList = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ReplyActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
+         replyCommentAdapter = new ReplyCommentAdapter(ReplyActivity.this,ReplyCommentsList);
+        recyclerView.setAdapter(replyCommentAdapter);
 
         commentId = getIntent().getStringExtra("cmntId");
          postId = getIntent().getStringExtra("postId");
@@ -212,8 +215,8 @@ public class ReplyActivity extends AppCompatActivity {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     ReplyComments replyComments = ds.getValue(ReplyComments.class);
                     ReplyCommentsList.add(replyComments);
-                    ReplyCommentAdapter replyCommentAdapter = new ReplyCommentAdapter(ReplyActivity.this,ReplyCommentsList);
-                    recyclerView.setAdapter(replyCommentAdapter);
+                    replyCommentAdapter.notifyDataSetChanged();
+
                 }
             }
 

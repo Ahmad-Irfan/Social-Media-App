@@ -94,4 +94,16 @@
     <string name="about">App Name: SocialApp\nDeveloper: InnovativeDeveloper\n\nSocialApp is a full social networking app with almost all features like Facebook.
         It includes video, and photo sharing and is available for sell at Codecanyon.\n\nVersion: 2.0 (DEMO)
     </string>
+
+
+    <!-- Fonts -->
+    <string name="faiz_lahori_nastaleeq">fonts/faiz-lahori-nastaleeq-regular.ttf</string>
+    <string name="jameel_noori_kasheeda">fonts/jameel-noori-kasheeda-regular-1.ttf</string>
+    <string name="jameel_noori_nastaliq">fonts/jameel-noori-nastaleeq-regular.ttf</string>
+    <string name="mehr_nastaleeq">fonts/Mehr Nastaliq Web.ttf</string>
+    <string name="nafees_naskh">fonts/Nafees Pakistani Web Naskh BTK.ttf</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>

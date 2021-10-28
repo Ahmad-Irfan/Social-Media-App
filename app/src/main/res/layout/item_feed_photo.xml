@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:cardCornerRadius="@dimen/spacing_small"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -52,7 +53,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/spacing_middle"
@@ -94,8 +95,8 @@
                             android:layout_height="15dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:tint="@color/colorAccent"
-                            android:src="@drawable/ic_verified"/>
+                            android:src="@drawable/ic_verified"
+                            app:tint="@color/colorAccent" />
 
                     </LinearLayout>
 
@@ -140,48 +141,113 @@
                 </com.balysv.materialripple.MaterialRippleLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/txtContent"
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:paddingLeft="@dimen/spacing_middle"
-                    android:paddingRight="@dimen/spacing_middle"
-                    android:autoLink="email|web"
-                    android:linksClickable="true"/>
+                    android:orientation="vertical"
+                    tools:ignore="MissingConstraints">
 
-                <FrameLayout
+                    <TextView
+                        android:id="@+id/txtContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:paddingLeft="@dimen/spacing_middle"
+                        android:paddingRight="@dimen/spacing_middle"
+                        android:autoLink="email|web"
+                        android:linksClickable="true"/>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/photo_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:adjustViewBounds="true"
+                            android:visibility="visible"
+                            android:maxHeight="250dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#eeeeee"
+                            android:transitionName="photo"/>
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:layout_margin="@dimen/spacing_large"
+                            android:layout_gravity="center"/>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="MissingConstraints">
 
-                    <ImageView
-                        android:id="@+id/photo_content"
+                    <TextView
+                        android:id="@+id/videoContent"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:adjustViewBounds="true"
-                        android:maxHeight="250dp"
-                        android:scaleType="centerCrop"
-                        android:layout_marginTop="10dp"
-                        android:background="#eeeeee"
-                        android:transitionName="photo"/>
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:paddingLeft="@dimen/spacing_middle"
+                        android:paddingRight="@dimen/spacing_middle"
+                        android:autoLink="email|web"
+                        android:linksClickable="true"/>
 
-                    <ProgressBar
-                        android:id="@+id/progressBar"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="25dp"
-                        android:layout_margin="@dimen/spacing_large"
-                        android:layout_gravity="center"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <com.google.android.exoplayer2.ui.PlayerView
+                            android:id="@+id/video_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:adjustViewBounds="true"
+                            android:visibility="gone"
+                            android:maxHeight="250dp"
+                            android:scaleType="centerCrop"
+                            android:layout_marginTop="10dp"
+                            android:background="#eeeeee"
+                            android:transitionName="photo" />
+<!--                        <ImageView
+                            android:id="@+id/video_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:adjustViewBounds="true"
+                            android:maxHeight="250dp"
+                            android:scaleType="centerCrop"
+                            android:layout_marginTop="10dp"
+                            android:background="#eeeeee"
+                            android:transitionName="photo"/>-->
 
-                </FrameLayout>
+<!--                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:layout_margin="@dimen/spacing_large"
+                            android:layout_gravity="center"
+                            tools:ignore="DuplicateIds" />-->
 
-            </LinearLayout>
+                    </FrameLayout>
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/likesLayout"

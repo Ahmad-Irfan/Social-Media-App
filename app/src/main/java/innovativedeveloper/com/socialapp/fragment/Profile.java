@@ -20,6 +20,7 @@ import com.squareup.picasso.Target;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import innovativedeveloper.com.socialapp.MediaActivity;
+import innovativedeveloper.com.socialapp.OfficeActivity.UserProfileActivity;
 import innovativedeveloper.com.socialapp.UserProfile;
 import innovativedeveloper.com.socialapp.config.AppHandler;
 import innovativedeveloper.com.socialapp.dataset.User;
@@ -117,7 +118,8 @@ public class Profile extends Fragment {
                 break;
             }
             case R.id.lv_viewProfile: {
-                UserProfile.startUserProfile(getActivity(), AppHandler.getInstance().getUser().getUsername(), AppHandler.getInstance().getUser().getName());
+             //   UserProfile.startUserProfile(getActivity(), AppHandler.getInstance().getUser().getUsername(), AppHandler.getInstance().getUser().getName());
+                startActivity(new Intent(getActivity(), UserProfileActivity.class));
                 break;
             }
             case R.id.lv_photos: {
